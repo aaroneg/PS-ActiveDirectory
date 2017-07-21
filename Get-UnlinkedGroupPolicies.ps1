@@ -37,10 +37,10 @@ function Get-UnlinkedGPObjects {
 
 Write-Host "This script will take some time to finish. Please be patient." -ForegroundColor Yellow
 
-if (!$GPObjectList) { 
-    Write-Verbose "Reading GPOs"
-    $GPObjectList=Get-UnlinkedGPObjects -verbose
-}
+
+Write-Verbose "Reading GPOs"
+$GPObjectList=Get-UnlinkedGPObjects -verbose
+
 
 $GPObjectList|Export-Csv -Path $PSScriptRoot\Unlinked-GPO.csv -Force -NoTypeInformation
 $GPObjectList|Select DisplayName
