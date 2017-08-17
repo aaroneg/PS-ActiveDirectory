@@ -1,4 +1,11 @@
-﻿Function Remove-InvalidFileNameChars {
+<#
+	Author		: Aaron (https://github.com/aaroneg)
+	Source      : https://github.com/aaroneg/PS-ActiveDirectory/
+	File Name	: New-ADSnapshot.ps1
+
+#>
+
+  Function Remove-InvalidFileNameChars {
     [CmdletBinding()] 
      Param( 
         [Parameter( 
