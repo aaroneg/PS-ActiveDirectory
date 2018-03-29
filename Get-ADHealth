@@ -1,6 +1,6 @@
 <#
     .NOTES
-    Author: Aaron Glenn
+    Author: Aaron Glenn, @Danielewood
     Q: What does this do?
     A: It attempts to validate your AD health to the best of the author's ability
 
@@ -15,6 +15,7 @@
     A: https://pandoc.org/getting-started.html
 
 #>
+if (!$PSScriptRoot){$PSScriptRoot=$PWD}
 $Report=@()
 Clear-Host
 $ADForest = [system.directoryservices.activedirectory.Forest]::GetCurrentForest()
