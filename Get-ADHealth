@@ -94,6 +94,7 @@ Foreach ($ADController in $ADControllers) {
 }
 
 $Report+="`n ## Current Replication failures across the domain"
-(Get-ADReplicationFailure -Scope Domain).Count
+$ReplicationFailureCount=(Get-ADReplicationFailure -Scope Domain).Count
+$Report+="* Replication failure count: $ReplicationFailureCount"
 $Report|Set-Clipboard
 $Report|Out-File $PSScriptRoot\ADHealth.md -Encoding utf8
