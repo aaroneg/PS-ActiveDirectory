@@ -93,8 +93,15 @@ Foreach ($ADController in $ADControllers) {
     $Report+="* "+$ADController+" : **"+$Status+"**"
 }
 
+$ReplFailures = (Get-ADReplicationFailure -Scope Domain -ErrorAction SilentlyContinue | where FailureCount -gt 0)
 $Report+="`n ## Current Replication failures across the domain"
-$Report+="* Replication failures:" + ((Get-ADReplicationFailure -Scope Domain -ErrorAction SilentlyContinue).FailureCount | Measure-Object -Sum ).Sum
-$Report+="* Replication failure count: $ReplicationFailureCount"
+Foreach ($ReplFailure in $ReplFailures) {
+    $Report+="* "+$($ReplFailure.Server)+" : **"+$($ReplFailure.FailureType)+"** : **"+$($ReplFailure.FailureCount)+"**"
+    Write-Output "ReplFailure: $($ReplFailure.Server) : **$($ReplFailure.FailureType)** : **$($ReplFailure.FailureCount)**"
+}
+
+$Report+="* Replication failures:" + $(($ReplFailures.FailureCount | Measure-Object -Sum ).Sum)
+
+
 $Report|Set-Clipboard
 $Report|Out-File $PSScriptRoot\ADHealth.md -Encoding utf8
